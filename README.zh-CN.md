@@ -1,5 +1,7 @@
 # @whitecat/whcat-timer
 
+[![CI](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml)
+
 面向 Node.js 的高可靠定时调度核心，基于 Rust + napi-rs。
 
 English README: [README.md](./README.md)

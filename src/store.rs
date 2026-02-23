@@ -311,10 +311,7 @@ impl Store for SQLiteStore {
     self
       .conn
       .lock()
-      .execute(
-        "INSERT INTO audit_records(record_json) VALUES (?1)",
-        [raw],
-      )
+      .execute("INSERT INTO audit_records(record_json) VALUES (?1)", [raw])
       .map_err(|e| TimerError::new(ErrorCode::StoreError, e.to_string()))?;
     Ok(())
   }

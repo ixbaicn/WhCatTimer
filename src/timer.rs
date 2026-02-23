@@ -386,25 +386,34 @@ impl WhCatTimer {
   pub fn schedule(&self, input: NapiScheduleInput) -> Result<ScheduleResult> {
     match input.r#type.trim().to_ascii_lowercase().as_str() {
       "once" => self.schedule_once(
-        input
-          .run_at_ms
-          .ok_or_else(|| to_js_error(TimerError::new(ErrorCode::InvalidArgument, "run_at_ms is required for type=once")))?,
+        input.run_at_ms.ok_or_else(|| {
+          to_js_error(TimerError::new(
+            ErrorCode::InvalidArgument,
+            "run_at_ms is required for type=once",
+          ))
+        })?,
         input.payload_json,
         input.job_id,
       ),
       "interval" => self.schedule_interval(
-        input
-          .every_ms
-          .ok_or_else(|| to_js_error(TimerError::new(ErrorCode::InvalidArgument, "every_ms is required for type=interval")))?,
+        input.every_ms.ok_or_else(|| {
+          to_js_error(TimerError::new(
+            ErrorCode::InvalidArgument,
+            "every_ms is required for type=interval",
+          ))
+        })?,
         input.payload_json,
         input.job_id,
         input.strict_interval_cycle,
         input.count,
       ),
       "cron" => self.schedule_cron(
-        input
-          .cron_expr
-          .ok_or_else(|| to_js_error(TimerError::new(ErrorCode::InvalidArgument, "cron_expr is required for type=cron")))?,
+        input.cron_expr.ok_or_else(|| {
+          to_js_error(TimerError::new(
+            ErrorCode::InvalidArgument,
+            "cron_expr is required for type=cron",
+          ))
+        })?,
         input.tz,
         input.payload_json,
         input.job_id,
@@ -467,7 +476,14 @@ impl WhCatTimer {
 
   #[napi(js_name = "listJobs")]
   pub fn list_jobs(&self) -> Result<Vec<NapiJobListItem>> {
-    Ok(self.engine.list_jobs().into_iter().map(to_napi_job_item).collect())
+    Ok(
+      self
+        .engine
+        .list_jobs()
+        .into_iter()
+        .map(to_napi_job_item)
+        .collect(),
+    )
   }
 
   #[napi(js_name = "getJob")]

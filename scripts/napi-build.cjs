@@ -6,6 +6,11 @@ function stripWrapQuotes(v) {
   return String(v || '').trim().replace(/^['"]+|['"]+$/g, '')
 }
 
+function isLikelyMsvcLinker(linkerPath) {
+  const p = stripWrapQuotes(linkerPath).toLowerCase()
+  return p.endsWith('\\link.exe') && p.includes('\\vc\\tools\\msvc\\')
+}
+
 function findLatestDir(root) {
   if (!root || !fs.existsSync(root)) return null
   const dirs = fs
@@ -59,10 +64,11 @@ function findLinker(installPath) {
   if (process.platform !== 'win32') return null
 
   try {
-    const found = execFileSync('where', ['link.exe'], { encoding: 'utf8' })
+    const candidates = execFileSync('where', ['link.exe'], { encoding: 'utf8' })
       .split(/\r?\n/)
       .map((v) => stripWrapQuotes(v))
-      .find((v) => v && fs.existsSync(v))
+      .filter((v) => v && fs.existsSync(v))
+    const found = candidates.find((v) => isLikelyMsvcLinker(v))
     if (found) return found
   } catch {}
 
@@ -197,9 +203,26 @@ if (process.platform === 'win32') {
 
 if (linker) {
   env.CARGO_TARGET_X86_64_PC_WINDOWS_MSVC_LINKER = linker
+  const msvcRoot = path.resolve(linker, '..', '..', '..', '..')
+  const x86Linker = path.join(msvcRoot, 'bin', 'Hostx64', 'x86', 'link.exe')
+  const arm64Linker = path.join(msvcRoot, 'bin', 'Hostx64', 'arm64', 'link.exe')
+  if (fs.existsSync(x86Linker)) {
+    env.CARGO_TARGET_I686_PC_WINDOWS_MSVC_LINKER = x86Linker
+  }
+  if (fs.existsSync(arm64Linker)) {
+    env.CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_LINKER = arm64Linker
+  }
   env.Path = `${path.dirname(linker)};${env.Path || env.PATH || ''}`
   env.PATH = env.Path
   console.log(`[whcat-timer] using linker: ${linker}`)
+  if (env.CARGO_TARGET_I686_PC_WINDOWS_MSVC_LINKER) {
+    console.log(`[whcat-timer] using i686 linker: ${env.CARGO_TARGET_I686_PC_WINDOWS_MSVC_LINKER}`)
+  }
+  if (env.CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_LINKER) {
+    console.log(
+      `[whcat-timer] using aarch64 linker: ${env.CARGO_TARGET_AARCH64_PC_WINDOWS_MSVC_LINKER}`,
+    )
+  }
 } else if (process.platform === 'win32') {
   console.warn('[whcat-timer] link.exe unresolved, install Visual Studio C++ Build Tools')
 }

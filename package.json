@@ -1,11 +1,11 @@
 {
-  "name": "@whitecat/whcat-timer",
+  "name": "WhCatTimer",
   "version": "1.0.0",
   "description": "WhiteCat high-reliability timer core powered by Rust + napi-rs",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/whitecat/whcat-timer.git"
+    "url": "git+ssh://git@github.com/ixbaicn/WhCatTimer.git"
   },
   "license": "MIT",
   "browser": "browser.js",

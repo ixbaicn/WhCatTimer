@@ -12,7 +12,7 @@ import {
   dailyAt,
   weeklyOn,
   monthlyOn,
-} from '@whitecat/whcat-timer'
+} from 'WhCatTimer'
 ```
 
 ## 2. Core Class: `WhCatTimer`

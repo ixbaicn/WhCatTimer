@@ -1,4 +1,4 @@
-# @whitecat/whcat-timer
+# WhCatTimer
 
 [![CI](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml)
 
@@ -8,7 +8,7 @@ English README: [README.md](./README.md)
 
 ## 项目介绍
 
-`@whitecat/whcat-timer` 适用于生产环境下的任务调度场景，重点解决：
+`WhCatTimer` 适用于生产环境下的任务调度场景，重点解决：
 
 - 大量任务下的低开销调度
 - 长期运行稳定性

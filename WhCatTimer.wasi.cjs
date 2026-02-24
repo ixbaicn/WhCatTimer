@@ -39,9 +39,9 @@ if (__nodeFs.existsSync(__wasmDebugFilePath)) {
   __wasmFilePath = __wasmDebugFilePath
 } else if (!__nodeFs.existsSync(__wasmFilePath)) {
   try {
-    __wasmFilePath = require.resolve('@whitecat/whcat-timer-wasm32-wasi/WhCatTimer.wasm32-wasi.wasm')
+    __wasmFilePath = require.resolve('WhCatTimer-wasm32-wasi/WhCatTimer.wasm32-wasi.wasm')
   } catch {
-    throw new Error('Cannot find WhCatTimer.wasm32-wasi.wasm file, and @whitecat/whcat-timer-wasm32-wasi package is not installed.')
+    throw new Error('Cannot find WhCatTimer.wasm32-wasi.wasm file, and WhCatTimer-wasm32-wasi package is not installed.')
   }
 }
 

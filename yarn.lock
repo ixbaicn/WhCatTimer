@@ -1432,9 +1432,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@whitecat/whcat-timer@workspace:.":
+"WhCatTimer@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@whitecat/whcat-timer@workspace:."
+  resolution: "WhCatTimer@workspace:."
   dependencies:
     "@emnapi/core": "npm:^1.5.0"
     "@emnapi/runtime": "npm:^1.5.0"

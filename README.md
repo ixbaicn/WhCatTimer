@@ -1,4 +1,4 @@
-# @whitecat/whcat-timer
+# WhCatTimer
 
 [![CI](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ixbaicn/WhCatTimer/actions/workflows/CI.yml)
 
@@ -8,7 +8,7 @@ High-reliability timer/scheduler core for Node.js, powered by Rust + napi-rs.
 
 ## Project Introduction
 
-`@whitecat/whcat-timer` is designed for production-grade scheduling scenarios where you need:
+`WhCatTimer` is designed for production-grade scheduling scenarios where you need:
 
 - low-overhead scheduling for large job sets
 - stable long-running behavior
